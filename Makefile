@@ -34,12 +34,14 @@ SRCS   += $(notdir $(wildcard $(STM_STDPERIPH_PATH)/src/*.c))
 CC = arm-none-eabi-gcc
 OBJCOPY = arm-none-eabi-objcopy
 
-CFLAGS += -mlittle-endian -mthumb -mcpu=cortex-m4 -mthumb-interwork
+CFLAGS += -mthumb -mcpu=cortex-m4 -mthumb-interwork
 CFLAGS += -mfloat-abi=hard -mfpu=fpv4-sp-d16
+CFLAGS += -ffunction-sections -fdata-sections
 
-LDFLAGS  = -mlittle-endian -mthumb -mcpu=cortex-m4 -mthumb-interwork
+LDFLAGS  = -mthumb -mcpu=cortex-m4 -mthumb-interwork
 LDFLAGS += -mfloat-abi=hard -mfpu=fpv4-sp-d16
 LDFLAGS += -Tstm32_flash.ld 
+LDFLAGS += -Wl,-gc-sections
 
 all: $(BUILD) | $(BUILD)/$(PROJ_NAME).elf $(BUILD)/$(PROJ_NAME).hex $(BUILD)/$(PROJ_NAME).bin
 
